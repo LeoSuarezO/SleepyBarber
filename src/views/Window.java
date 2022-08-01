@@ -1,16 +1,41 @@
 package views;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Window extends JFrame {
 
-    private JPanel mainPanel;
+    private MainPanel mainPanel;
 
     public Window() {
-        this.setTitle("arg0");
         this.mainPanel = new MainPanel();
-        this.setSize(600, 400);
+        this.setTitle("Sleepy Barber");
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        init();
+    }
+    
+    private void init() {
+        this.setSize(800, 600);
+        this.setLocationRelativeTo(null);
         this.add(mainPanel);
+    }
+
+    public void createBarber(int myNumber) {
+        mainPanel.createBarber(myNumber);
+    }
+
+    public void createClient(int myNumber) {
+        mainPanel.createClient(myNumber);
+    }
+
+    public void checkDuringCut(int myNumber) {
+        mainPanel.checkDuringCuting(myNumber);
+    }
+
+    public void markFullRoom(int myNumber) {
+        mainPanel.markFullRoom(myNumber);
+    }
+
+    public void showBusyStatus(int myNumber) {
+        
     }
 }

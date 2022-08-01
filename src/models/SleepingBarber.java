@@ -5,6 +5,9 @@ import java.util.concurrent.Semaphore;
 import views.Window;
 
 public class SleepingBarber extends Thread {
+
+    Window window = new Window();
+
     // Shared objects
     // Number of customers waiting for service
     public Semaphore customers = new Semaphore(0);
@@ -22,8 +25,7 @@ public class SleepingBarber extends Thread {
 
     public static void main(String args[]) {
         SleepingBarber holder = new SleepingBarber();
-        Window window = new Window();
-        window.setVisible(true);
+        holder.window.setVisible(true);
         holder.start();
 
     }
@@ -38,7 +40,7 @@ public class SleepingBarber extends Thread {
         for (int i = 0; i < BARBERS; i++) {
             // Create the barbers
             aBarber = new Barber(i);
-
+            window.createBarber(aBarber.myNumber);
             // Start the threads running
             aBarber.start();
         }
@@ -46,8 +48,8 @@ public class SleepingBarber extends Thread {
         int customerNumber = 0;
         while (true) {
             aCustomer = new Client(customerNumber++);
+            window.createClient(aCustomer.myNumber);
             // Start the customer running
-            System.out.println("Cliente Creado - " + aCustomer.myNumber);
             aCustomer.start();
             // Wait a bit and make another customer
             try {
@@ -67,17 +69,18 @@ public class SleepingBarber extends Thread {
 
         public void run() { // What a customer does
             try {
-                mutex.acquire(); // Acquire access to waiting
+                mutex.release(); // Acquire access to waiting
                 if (waiting < CHAIRS) {
                     waiting = waiting + 1; // Increment count of waiting
                     // customers
-                    customers.release(); // Wake up barber if needed
-                    mutex.release(); // Release waiting
-                    barbers.acquire(); // Go to sleep if number of free
+                    customers.acquire(); // Wake up barber if needed
+                    mutex.acquire(); // Release waiting
+                    barbers.release(); // Go to sleep if number of free
                     // barbers is 0
                     get_haircut(); // Noncritical region
                 } else {
-                    mutex.release(); // Shop is full do not wait
+                    window.markFullRoom(myNumber);
+                    mutex.acquire(); // Shop is full do not wait
                 }
             } catch (Exception e) {
                 // TODO: handle exception
@@ -87,6 +90,7 @@ public class SleepingBarber extends Thread {
         public void get_haircut() {
             System.out.println("Customer " + myNumber
                     + " is getting his hair cut");
+            window.checkDuringCut(myNumber);
             try {
                 sleep(10000);
             } catch (InterruptedException ex) {
@@ -105,12 +109,12 @@ public class SleepingBarber extends Thread {
             while (true) {
                 try {
                     customers.release(); // Go to sleep if no customers
-                    mutex.acquire(); // Acquire access to waiting
+                    mutex.release(); // Acquire access to waiting
                     waiting = waiting - 1; // Decrement count of waiting
                     // customers
-                    barbers.release(); // One barber is now ready to cut
+                    barbers.acquire(); // One barber is now ready to cut
                     // hair
-                    mutex.release(); // Release waiting
+                    mutex.acquire(); // Release waiting
                     cut_hair(); // Noncritical region
                 } catch (Exception e) {
 
@@ -120,6 +124,7 @@ public class SleepingBarber extends Thread {
 
         public void cut_hair() {
             System.out.println("Barber " + myNumber + " is cutting hair");
+            window.showBusyStatus(myNumber);
             try {
                 sleep(7500);
             } catch (InterruptedException ex) {
