@@ -53,7 +53,7 @@ public class SleepingBarber extends Thread {
             aCustomer.start();
             // Wait a bit and make another customer
             try {
-                sleep(1000);
+                sleep(1500);
             } catch (InterruptedException ex) {
             }
             ;
@@ -108,6 +108,7 @@ public class SleepingBarber extends Thread {
         public void run() { // What a barber does
             while (true) {
                 try {
+                    window.sleeping(myNumber);
                     customers.release(); // Go to sleep if no customers
                     mutex.release(); // Acquire access to waiting
                     waiting = waiting - 1; // Decrement count of waiting
@@ -127,6 +128,8 @@ public class SleepingBarber extends Thread {
             window.showBusyStatus(myNumber);
             try {
                 sleep(7500);
+                window.showAvaliableStatus(myNumber);
+                sleep(250);
             } catch (InterruptedException ex) {
             }
         }

@@ -26,4 +26,16 @@ public class BarberShopPanel extends JPanel {
         barbers.addBarber(myNumber);
         repaint();
     }
+
+    public void showBusyStatus(int myNumber) {
+        barbers.markBusy(myNumber);
+    }
+
+    public void showAvaliableStatus(int myNumber) {
+        barbers.markAvaliable(myNumber);
+    }
+
+    public void sleeping(int myNumber) {
+        barbers.sleep(myNumber);
+    }
 }

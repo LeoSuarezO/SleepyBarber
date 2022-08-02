@@ -47,4 +47,16 @@ public class MainPanel extends JPanel {
     public void markFullRoom(int myNumber) {
         clients.lose(myNumber);
     }
+
+    public void showBusyStatus(int myNumber) {
+        shop.showBusyStatus(myNumber);
+    }
+
+    public void showAvaliableStatus(int myNumber) {
+        shop.showAvaliableStatus(myNumber);
+    }
+
+    public void sleeping(int myNumber) {
+        shop.sleeping(myNumber);
+    }
 }
