@@ -54,4 +54,8 @@ public class Window extends JFrame {
     public void updateLosed(int losed) {
         mainPanel.updateLosed(losed);
     }
+
+    public void updateTime(int time) {
+        mainPanel.updateTime(time);
+    }
 }

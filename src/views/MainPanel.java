@@ -66,4 +66,8 @@ public class MainPanel extends JPanel {
     public void updateLosed(int losed) {
         statistics.updateLosed(losed);
     }
+
+    public void updateTime(int time) {
+        statistics.updateTime(time);
+    }
 }

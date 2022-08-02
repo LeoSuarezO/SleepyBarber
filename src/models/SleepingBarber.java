@@ -20,6 +20,7 @@ public class SleepingBarber extends Thread {
 
     public int waiting = 0;
     public int losed = 0;
+    public int time = 0;
 
     // Chairs for waiting customers
     public final int CHAIRS = 5;
@@ -48,13 +49,14 @@ public class SleepingBarber extends Thread {
 
         int customerNumber = 0;
         while (true) {
+            window.updateTime(time++);
             aCustomer = new Client(customerNumber++);
             window.createClient(aCustomer.myNumber);
             // Start the customer running
             aCustomer.start();
             // Wait a bit and make another customer
             try {
-                sleep(1500);
+                sleep(1000);
             } catch (InterruptedException ex) {
             }
             ;
