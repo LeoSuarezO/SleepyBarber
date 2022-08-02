@@ -8,11 +8,9 @@ import javax.swing.JPanel;
 public class BarberShopPanel extends JPanel {
 
     private BarbersPanel barbers;
-    private WaitPanel wait;
 
     public BarberShopPanel() {
         barbers = new BarbersPanel();
-        wait = new WaitPanel();
         this.setBackground(Color.BLUE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         init();

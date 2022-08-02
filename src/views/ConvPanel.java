@@ -2,6 +2,6 @@ package views;
 
 import javax.swing.JPanel;
 
-public class WaitPanel extends JPanel {
+public class ConvPanel extends JPanel {
 
 }

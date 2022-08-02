@@ -19,6 +19,7 @@ public class SleepingBarber extends Thread {
     public Semaphore mutex = new Semaphore(1);
 
     public int waiting = 0;
+    public int losed = 0;
 
     // Chairs for waiting customers
     public final int CHAIRS = 5;
@@ -72,7 +73,7 @@ public class SleepingBarber extends Thread {
                 mutex.release(); // Acquire access to waiting
                 if (waiting < CHAIRS) {
                     waiting = waiting + 1; // Increment count of waiting
-                    // customers
+                    window.updateWaiting(waiting);
                     customers.acquire(); // Wake up barber if needed
                     mutex.acquire(); // Release waiting
                     barbers.release(); // Go to sleep if number of free
@@ -80,6 +81,8 @@ public class SleepingBarber extends Thread {
                     get_haircut(); // Noncritical region
                 } else {
                     window.markFullRoom(myNumber);
+                    losed++;
+                    window.updateLosed(losed);
                     mutex.acquire(); // Shop is full do not wait
                 }
             } catch (Exception e) {
@@ -112,7 +115,7 @@ public class SleepingBarber extends Thread {
                     customers.release(); // Go to sleep if no customers
                     mutex.release(); // Acquire access to waiting
                     waiting = waiting - 1; // Decrement count of waiting
-                    // customers
+                    window.updateWaiting(waiting);
                     barbers.acquire(); // One barber is now ready to cut
                     // hair
                     mutex.acquire(); // Release waiting

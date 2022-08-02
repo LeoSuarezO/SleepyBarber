@@ -1,8 +1,6 @@
 package views;
 
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-
 import java.awt.BorderLayout;
 
 public class MainPanel extends JPanel {
@@ -10,16 +8,15 @@ public class MainPanel extends JPanel {
     private TitlePanel title;
     private ClientsPanel clients;
     private BarberShopPanel shop;
-    private FinishedPanel finish;
-    private WaitPanel wait;
-    private LosePanel lose;
+    private ConvPanel convPanel;
+    private StatisticsPanel statistics;
 
     public MainPanel() {
         title = new TitlePanel();
         clients = new ClientsPanel();
         shop = new BarberShopPanel();
-        finish = new FinishedPanel();
-        lose = new LosePanel();
+        convPanel = new ConvPanel();
+        statistics = new StatisticsPanel();
         this.setLayout(new BorderLayout());
         init();
     }
@@ -28,8 +25,8 @@ public class MainPanel extends JPanel {
         this.add(title, BorderLayout.NORTH);
         this.add(shop, BorderLayout.CENTER);
         this.add(clients, BorderLayout.WEST);
-        this.add(lose, BorderLayout.EAST);
-        this.add(finish, BorderLayout.SOUTH);
+        this.add(statistics, BorderLayout.EAST);
+        this.add(convPanel, BorderLayout.SOUTH);
     }
 
     public void createBarber(int myNumber) {
@@ -42,6 +39,7 @@ public class MainPanel extends JPanel {
 
     public void checkDuringCuting(int myNumber) {
         clients.check(myNumber);
+        statistics.attend(myNumber);
     }
 
     public void markFullRoom(int myNumber) {
@@ -54,9 +52,18 @@ public class MainPanel extends JPanel {
 
     public void showAvaliableStatus(int myNumber) {
         shop.showAvaliableStatus(myNumber);
+        statistics.cutFinish();
     }
 
     public void sleeping(int myNumber) {
         shop.sleeping(myNumber);
+    }
+
+    public void updateWaiting(int waiting) {
+        statistics.updateWaiting(waiting);
+    }
+
+    public void updateLosed(int losed) {
+        statistics.updateLosed(losed);
     }
 }

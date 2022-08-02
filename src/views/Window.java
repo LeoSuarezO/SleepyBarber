@@ -12,7 +12,7 @@ public class Window extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         init();
     }
-    
+
     private void init() {
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
@@ -45,5 +45,13 @@ public class Window extends JFrame {
 
     public void sleeping(int myNumber) {
         mainPanel.sleeping(myNumber);
+    }
+
+    public void updateWaiting(int waiting) {
+        mainPanel.updateWaiting(waiting);
+    }
+
+    public void updateLosed(int losed) {
+        mainPanel.updateLosed(losed);
     }
 }

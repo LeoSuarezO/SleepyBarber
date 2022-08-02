@@ -1,19 +1,27 @@
 package views;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
+import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridLayout;
 
 public class BarbersPanel extends JPanel {
 
     public BarbersPanel() {
-        this.setLayout(new GridLayout());
+        GridLayout layout = new GridLayout();
+        layout.setHgap(1);
+        layout.setVgap(2);
+        this.setLayout(layout);
     }
 
     public void addBarber(int myNumber) {
-        this.add(new JButton("Barber - " + myNumber));
+        JButton button = new JButton("Barber - " + myNumber);
+        Font font = new Font("Segoe", Font.BOLD, 14);
+        button.setFont(font);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        this.add(String.valueOf(myNumber), button);
         updateUI();
     }
 
