@@ -50,9 +50,9 @@ public class MainPanel extends JPanel {
         shop.showBusyStatus(myNumber);
     }
 
-    public void showAvaliableStatus(int myNumber) {
+    public void showAvaliableStatus(int myNumber, int attended) {
         shop.showAvaliableStatus(myNumber);
-        statistics.cutFinish();
+        statistics.cutFinish(attended);
     }
 
     public void sleeping(int myNumber) {

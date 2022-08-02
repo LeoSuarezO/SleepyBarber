@@ -39,8 +39,8 @@ public class Window extends JFrame {
         mainPanel.showBusyStatus(myNumber);
     }
 
-    public void showAvaliableStatus(int myNumber) {
-        mainPanel.showAvaliableStatus(myNumber);
+    public void showAvaliableStatus(int myNumber, int attended) {
+        mainPanel.showAvaliableStatus(myNumber, attended);
     }
 
     public void sleeping(int myNumber) {

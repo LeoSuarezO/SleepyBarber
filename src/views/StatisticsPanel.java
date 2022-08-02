@@ -14,6 +14,7 @@ public class StatisticsPanel extends JPanel {
     private JLabel losed;
     private JPanel stats;
     private JLabel time;
+    private JLabel attended;
     private JPanel attendPanel;
 
     public StatisticsPanel() {
@@ -22,6 +23,7 @@ public class StatisticsPanel extends JPanel {
         waiting = new JLabel("Waiting: 0");
         losed = new JLabel("Losed: 0");
         time = new JLabel("Time: 0");
+        attended = new JLabel("Attended: 0");
         stats = new JPanel();
         init();
     }
@@ -31,6 +33,7 @@ public class StatisticsPanel extends JPanel {
         waiting.setFont(font);
         losed.setFont(font);
         time.setFont(font);
+        attended.setFont(font);
         stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
         stats.setBorder(BorderFactory.createTitledBorder("Statistics"));
         attendPanel = new JPanel();
@@ -39,8 +42,9 @@ public class StatisticsPanel extends JPanel {
         stats.add(time);
         stats.add(waiting);
         stats.add(losed);
-        this.add(stats);
+        stats.add(attended);
         
+        this.add(stats);
 
         this.add(attendPanel);
     }
@@ -64,8 +68,9 @@ public class StatisticsPanel extends JPanel {
         updateUI();
     }
 
-    public void cutFinish() {
+    public void cutFinish(int attended) {
         attendPanel.remove(0);
+        this.attended.setText("Attended: " + attended);
         updateUI();
     }
 
