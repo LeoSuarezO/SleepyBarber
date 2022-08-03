@@ -61,7 +61,8 @@ public class StatisticsPanel extends JPanel {
 
     public void attend(int myNumber) {
         JButton button = new JButton("Client - " + myNumber);
-        button.setBackground(Color.BLUE);
+        button.setBackground(Color.decode("#0A2463"));
+        button.setForeground(Color.white);
         Font font = new Font("Segoe", Font.PLAIN, 14);
         button.setFont(font);
         attendPanel.add(button);

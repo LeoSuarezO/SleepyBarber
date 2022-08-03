@@ -20,20 +20,21 @@ public class BarbersPanel extends JPanel {
         JButton button = new JButton("Barber - " + myNumber);
         Font font = new Font("Segoe", Font.BOLD, 14);
         button.setFont(font);
+        button.setForeground(Color.white);
         button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         this.add(String.valueOf(myNumber), button);
         updateUI();
     }
 
     public void markBusy(int myNumber) {
-        this.getComponent(myNumber).setBackground(Color.ORANGE);
+        this.getComponent(myNumber).setBackground(Color.decode("#4F4789"));
     }
 
     public void markAvaliable(int myNumber) {
-        this.getComponent(myNumber).setBackground(Color.GRAY);
+        this.getComponent(myNumber).setBackground(Color.decode("#0A630E"));
     }
 
     public void sleep(int myNumber) {
-        this.getComponent(myNumber).setBackground(Color.lightGray);
+        this.getComponent(myNumber).setBackground(Color.decode("#E2E2E2"));
     }
 }

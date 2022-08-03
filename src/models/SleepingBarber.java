@@ -70,9 +70,9 @@ public class SleepingBarber extends Thread {
             myNumber = i;
         }
 
-        public void run() { // What a customer does
+        public void run() {
             try {
-                mutex.release(); // Acquire access to waiting
+                mutex.release();
                 if (waiting < CHAIRS) {
                     waiting = waiting + 1; // Increment count of waiting
                     window.updateWaiting(waiting);
@@ -88,7 +88,6 @@ public class SleepingBarber extends Thread {
                     mutex.acquire(); // Shop is full do not wait
                 }
             } catch (Exception e) {
-                // TODO: handle exception
             }
         }
 
@@ -104,13 +103,13 @@ public class SleepingBarber extends Thread {
     }
 
     class Barber extends Thread {
-        private int myNumber; // Id for the Barber
+        private int myNumber;
 
-        public Barber(int i) { // Constructor for the Barber
+        public Barber(int i) {
             myNumber = i;
         }
 
-        public void run() { // What a barber does
+        public void run() {
             while (true) {
                 try {
                     window.sleeping(myNumber);

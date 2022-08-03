@@ -1,7 +1,10 @@
 package views;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class MainPanel extends JPanel {
 
@@ -69,5 +72,15 @@ public class MainPanel extends JPanel {
 
     public void updateTime(int time) {
         statistics.updateTime(time);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        g.drawImage(new ImageIcon(getClass().getResource("/images/background.jpg")).getImage(), 0, 0, getWidth(),
+                getHeight(),
+                this);
+
+        setOpaque(false);
+        super.paint(g);
     }
 }

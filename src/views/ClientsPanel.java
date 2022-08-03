@@ -36,7 +36,8 @@ public class ClientsPanel extends JPanel {
 
     public void addClient(int myNumber) {
         JButton button = new JButton("Client - " + myNumber);
-        button.setBackground(Color.BLUE);
+        button.setBackground(Color.decode("#605F5E"));
+        button.setForeground(Color.white);
         Font font = new Font("Segoe", Font.PLAIN, 14);
         button.setFont(font);
         clients.add(button);
@@ -44,13 +45,13 @@ public class ClientsPanel extends JPanel {
     }
 
     public void check(int myNumber) {
-        clients.getComponent(myNumber).setBackground(Color.GREEN);
+        clients.getComponent(myNumber).setBackground(Color.decode("#0A630E"));
         updateUI();
         
     }
 
     public void lose(int myNumber) {
-        clients.getComponent(myNumber).setBackground(Color.RED);
+        clients.getComponent(myNumber).setBackground(Color.decode("#C71212"));
         updateUI();
     }
 }
