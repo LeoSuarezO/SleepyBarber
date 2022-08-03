@@ -1,7 +1,6 @@
 package models;
 
 import java.util.concurrent.Semaphore;
-
 import views.Window;
 
 public class SleepingBarber extends Thread {
@@ -29,7 +28,6 @@ public class SleepingBarber extends Thread {
         SleepingBarber holder = new SleepingBarber();
         holder.window.setVisible(true);
         holder.start();
-
     }
 
     // This thread spins off a number of customers
