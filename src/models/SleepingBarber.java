@@ -46,7 +46,7 @@ public class SleepingBarber extends Thread {
         }
 
         int customerNumber = 0;
-        while (true) {
+        while (customerNumber<10) {
             window.updateTime(time++);
             aCustomer = new Client(customerNumber++);
             window.createClient(aCustomer.myNumber);
