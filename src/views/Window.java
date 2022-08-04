@@ -1,13 +1,15 @@
 package views;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 
 public class Window extends JFrame {
 
     private MainPanel mainPanel;
 
-    public Window() {
-        this.mainPanel = new MainPanel();
+    public Window(ActionListener l) {
+        this.mainPanel = new MainPanel(l);
         this.setTitle("Sleepy Barber");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         init();

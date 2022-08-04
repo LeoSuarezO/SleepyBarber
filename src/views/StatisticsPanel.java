@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 
 public class StatisticsPanel extends JPanel {
@@ -16,8 +17,9 @@ public class StatisticsPanel extends JPanel {
     private JLabel time;
     private JLabel attended;
     private JPanel attendPanel;
+    private JButton setButton;
 
-    public StatisticsPanel() {
+    public StatisticsPanel(ActionListener l) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(20, 10, 5, 10));
         waiting = new JLabel("Waiting: 0");
@@ -25,10 +27,11 @@ public class StatisticsPanel extends JPanel {
         time = new JLabel("Time: 0");
         attended = new JLabel("Attended: 0");
         stats = new JPanel();
-        init();
+        setButton = new JButton("Terminate");
+        init(l);
     }
 
-    private void init() {
+    private void init(ActionListener l) {
         Font font = new Font("Segoe", Font.BOLD, 14);
         waiting.setFont(font);
         losed.setFont(font);
@@ -47,6 +50,10 @@ public class StatisticsPanel extends JPanel {
         this.add(stats);
 
         this.add(attendPanel);
+        setButton.setActionCommand(Commands.RESTART.name());
+        setButton.addActionListener(l);
+        setButton.setBackground(Color.WHITE);
+        this.add(setButton);
     }
 
     public void updateWaiting(int waiting) {

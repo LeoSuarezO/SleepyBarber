@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
 
@@ -13,12 +14,12 @@ public class MainPanel extends JPanel {
     private ConvPanel convPanel;
     private StatisticsPanel statistics;
 
-    public MainPanel() {
+    public MainPanel(ActionListener l) {
         title = new TitlePanel();
         clients = new ClientsPanel();
         shop = new BarberShopPanel();
         convPanel = new ConvPanel();
-        statistics = new StatisticsPanel();
+        statistics = new StatisticsPanel(l);
         this.setLayout(new BorderLayout());
         init();
     }

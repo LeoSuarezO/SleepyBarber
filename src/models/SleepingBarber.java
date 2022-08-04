@@ -1,11 +1,18 @@
 package models;
 
 import java.util.concurrent.Semaphore;
+
+import views.Commands;
+import views.SetFrame;
 import views.Window;
 
-public class SleepingBarber extends Thread {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    Window window = new Window();
+public class SleepingBarber extends Thread implements ActionListener {
+
+    Window window = new Window(this);
+    SetFrame dialog = new SetFrame(this);
 
     // Shared objects
     // Number of customers waiting for service
@@ -21,18 +28,18 @@ public class SleepingBarber extends Thread {
     public int losed = 0;
     public int time = 0;
     public int attended = 0;
-    // Chairs for waiting customers
-    public final int CHAIRS = 5;
 
     public static void main(String args[]) {
         SleepingBarber holder = new SleepingBarber();
-        holder.window.setVisible(true);
-        holder.start();
+        // holder.window.setVisible(true);
+        holder.dialog.setVisible(true);
+        // holder.start();
     }
 
     // This thread spins off a number of customers
     public void run() {
-        final int BARBERS = 3;
+        // Chairs for waiting customers
+        final int BARBERS = dialog.getBarbers();
 
         Barber aBarber;
         Client aCustomer;
@@ -46,7 +53,7 @@ public class SleepingBarber extends Thread {
         }
 
         int customerNumber = 0;
-        while (customerNumber<10) {
+        while (customerNumber < dialog.getCustomers()) {
             window.updateTime(time++);
             aCustomer = new Client(customerNumber++);
             window.createClient(aCustomer.myNumber);
@@ -62,6 +69,7 @@ public class SleepingBarber extends Thread {
     }
 
     private class Client extends Thread {
+        final int CHAIRS = dialog.getChairs();
         private int myNumber; // Id for the Customer
 
         public Client(int i) { // Constructor for the Customer
@@ -69,6 +77,7 @@ public class SleepingBarber extends Thread {
         }
 
         public void run() {
+            window.updateTime(time++);
             try {
                 mutex.release();
                 if (waiting < CHAIRS) {
@@ -135,6 +144,24 @@ public class SleepingBarber extends Thread {
                 sleep(250);
             } catch (InterruptedException ex) {
             }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (Commands.valueOf(e.getActionCommand())) {
+            case START:
+                dialog.setVisible(false);
+                window.setVisible(true);
+                start();
+                break;
+            case RESTART:
+                window.setVisible(false);
+                SleepingBarber holder = new SleepingBarber();
+                holder.dialog.setVisible(true);
+                break;
+            default:
+                break;
         }
     }
 }
